@@ -5,6 +5,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Main extends Application {
     public static void main(String[] args) {launch(args);}
     @Override
@@ -24,6 +28,7 @@ public class Main extends Application {
 
         Visualization v = new Visualization();
 
+        MenuItem cycle = new MenuItem("Cycle");
         MenuItem red = new MenuItem("Red");
         MenuItem orange = new MenuItem("Orange");
         MenuItem yellow = new MenuItem("Yellow");
@@ -37,7 +42,7 @@ public class Main extends Application {
 
         MenuButton color = new MenuButton("Color");
         color.getItems().addAll(
-                red, orange, yellow, green, blue, indigo, violet, black, lime, pink
+                cycle, red, orange, yellow, green, blue, indigo, violet, black, lime, pink
         );
 
         speedSlider.setShowTickMarks(true);
@@ -55,10 +60,23 @@ public class Main extends Application {
 
         AnimationTimer a = new AnimationTimer() {
             private long lastUpdate = 0;
+            private int i = 0;
+
+            private final ArrayList<String> colors = new ArrayList<>(
+                    Arrays.asList(
+                            "Red", "Orange", "Yellow", "Green", "Blue",
+                            "Indigo", "Violet", "Black", "Lime", "Pink"));
+
             @Override
             public void handle (long now) {
                 if ((now - lastUpdate) >= speedSlider.getValue()*1000000000)
                 {
+                    i++;
+                    if(v.isCycle())
+                    {
+                        v.setColor(colors.get(i));
+                    }
+                    if (i>=9) i=0;
                     root.setCenter(null);
                     v.setTimesTable(v.getTimesTable() + 1);
                     root.setCenter(v.drawCircle());
@@ -84,62 +102,73 @@ public class Main extends Application {
             root.setCenter(v.drawCircle());
         });
 
+        cycle.setOnAction(event -> v.setCycle(true));
 
         red.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Red");
             root.setCenter(v.drawCircle());
         });
 
         orange.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Orange");
             root.setCenter(v.drawCircle());
         });
 
         yellow.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Yellow");
             root.setCenter(v.drawCircle());
         });
 
         green.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Green");
             root.setCenter(v.drawCircle());
         });
 
         blue.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Blue");
             root.setCenter(v.drawCircle());
         });
 
         indigo.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Indigo");
             root.setCenter(v.drawCircle());
         });
 
         violet.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Violet");
             root.setCenter(v.drawCircle());
         });
 
         black.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Black");
             root.setCenter(v.drawCircle());
         });
 
         lime.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Lime");
             root.setCenter(v.drawCircle());
         });
 
         pink.setOnAction(event -> {
+            v.setCycle(false);
             root.setCenter(null);
             v.setColor("Pink");
             root.setCenter(v.drawCircle());

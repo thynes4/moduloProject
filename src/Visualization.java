@@ -5,6 +5,7 @@ import javafx.scene.paint.Paint;
 import static java.lang.Math.*;
 
 public class Visualization {
+    private boolean cycle = false;
     private int numPoints = 10;
     private int timesTable = 2;
     private String color = "Black";
@@ -45,5 +46,13 @@ public class Visualization {
             gc.strokeLine(x,y,x2,y2);
         }
         return visual;
+    }
+
+    public boolean isCycle() {
+        return cycle;
+    }
+
+    public void setCycle(boolean cycle) {
+        this.cycle = cycle;
     }
 }
