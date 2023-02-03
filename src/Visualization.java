@@ -3,7 +3,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
 import static java.lang.Math.*;
-
+/**
+ * Only one instance of the visualization class is used, primarily to handle the logic of
+ * receiving values updated by the user and then using these values to draw the modulo visualization and
+ * to then return this as a finished Canvas to the Main class
+ */
 public class Visualization {
     private boolean cycle = false;
     private int numPoints = 10;
@@ -29,6 +33,11 @@ public class Visualization {
         return timesTable;
     }
 
+    /**
+     * does the math of calculating where to draw the lines and draws them onto a canvas with the given color
+     * uses the number of points specified as well as the times table number that was also previously given
+     * @return a finished canvas with the needed circle and lines correctly colored and placed
+     */
     public Canvas drawCircle() {
         Canvas visual = new Canvas(600,600);
         GraphicsContext gc = visual.getGraphicsContext2D();
@@ -48,9 +57,11 @@ public class Visualization {
         return visual;
     }
 
-    public boolean isCycle() {
-        return cycle;
-    }
+    /**
+     * used for getting if color cycling is on or not
+     * @return true if color cycling is enabled false if color cycling is not
+     */
+    public boolean isCycle() { return cycle; }
 
     public void setCycle(boolean cycle) {
         this.cycle = cycle;

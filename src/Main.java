@@ -9,7 +9,14 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Welcome to Modulo Visualization Project
+ * All code written by Thomas Hynes
+ */
 public class Main extends Application {
+    /**
+     * Main function includes most of the JavaFX framework for the project as well as the animation timer
+     */
     public static void main(String[] args) {launch(args);}
     @Override
     public void start(Stage stage) {
@@ -58,6 +65,8 @@ public class Main extends Application {
         stage.setScene(new Scene(root,800,600));
         stage.show();
 
+        // Animation timer handles color cycling as well as updating the times table used by one through each iteration
+
         AnimationTimer a = new AnimationTimer() {
             private long lastUpdate = 0;
             private int i = 0;
@@ -84,17 +93,24 @@ public class Main extends Application {
                 }
             }
         };
-        startBtn.setOnAction(event -> a.start());
 
+        startBtn.setOnAction(event -> a.start());
         stopBtn.setOnAction(event -> a.stop());
 
+        /*
+          When num points field value is changed,
+          it is sent to the visualization class to draw again
+         */
         numPointsField.setOnAction(event -> {
             int retrievedNumPoints = Integer.parseInt(numPointsField.getText());
             v.setNumPoints(retrievedNumPoints);
             root.setCenter(null);
             root.setCenter(v.drawCircle());
         });
-
+        /*
+          When times table field value is changed,
+          it is sent to the visualization class to draw again
+         */
         timesTableField.setOnAction(event -> {
             int retrievedTimesTable = Integer.parseInt(timesTableField.getText());
             v.setTimesTable(retrievedTimesTable);
@@ -102,8 +118,16 @@ public class Main extends Application {
             root.setCenter(v.drawCircle());
         });
 
+        /*
+          When cycle is selected from the color drop down,
+          it is sent to the visualization class to inform the animation timer to cycle color with each update
+         */
         cycle.setOnAction(event -> v.setCycle(true));
 
+        /*
+          When any color is selected from the color drop down,
+          it is sent to the visualization class to change the selected color and draw again
+         */
         red.setOnAction(event -> {
             v.setCycle(false);
             root.setCenter(null);
